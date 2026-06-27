@@ -1,0 +1,15 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Vars de build de Vite (se hornean en el bundle). Ajusta aquí o en la UI de Netlify.
+[build.environment]
+  VITE_USE_MOCK = "false"
+  VITE_API_BASE_URL = "https://symtechven.com/api"
+
+# SPA: cualquier ruta cae a index.html (vue-router history mode). Sin esto, F5 o
+# deep-link en /reportes da 404 en Netlify.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
