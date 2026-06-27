@@ -2,5 +2,6 @@ import { http } from '@/core/api/httpClient'
 import { endpoints } from '@/core/api/endpoints'
 
 export const authRepository = {
-  login: (email, password) => http.post(endpoints.auth.login, { email, password }),
+  // back: POST /admin/login { usuario, password } -> { token, tipo }
+  login: (usuario, password) => http.post(endpoints.auth.login, { usuario, password }),
 }

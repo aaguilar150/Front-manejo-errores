@@ -17,8 +17,10 @@ export const useAuthStore = defineStore('auth', {
     can: (s) => (action) => can(s.user?.role, action),
   },
   actions: {
-    async login(email, password) {
-      const { token, user } = await authRepository.login(email, password)
+    async login(usuario, password) {
+      // back solo devuelve { token, tipo }; el rol es siempre superadmin.
+      const { token } = await authRepository.login(usuario, password)
+      const user = { usuario, name: usuario, role: 'admin' }
       this.token = token
       this.user = user
       setAuthToken(token)

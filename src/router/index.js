@@ -9,13 +9,7 @@ const routes = [
     children: [
       { path: '', redirect: { name: 'dashboard' } },
       { path: 'dashboard', name: 'dashboard', component: () => import('@/views/DashboardView.vue') },
-      { path: 'reportes', name: 'reportes', component: () => import('@/views/ReportsView.vue') },
-      {
-        path: 'usuarios',
-        name: 'usuarios',
-        component: () => import('@/views/UsersView.vue'),
-        meta: { permission: 'users:manage' },
-      },
+      { path: 'reportes', name: 'reportes', component: () => import('@/views/ReportesPanelView.vue') },
     ],
   },
   { path: '/:pathMatch(.*)*', redirect: { name: 'dashboard' } },

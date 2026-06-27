@@ -6,7 +6,7 @@ import { useAuthStore } from '@/stores/authStore'
 const auth = useAuthStore()
 const router = useRouter()
 
-const email = ref('')
+const usuario = ref('')
 const password = ref('')
 const error = ref('')
 const loading = ref(false)
@@ -15,7 +15,7 @@ async function submit() {
   error.value = ''
   loading.value = true
   try {
-    await auth.login(email.value, password.value)
+    await auth.login(usuario.value, password.value)
     router.push({ name: 'dashboard' })
   } catch (e) {
     error.value = e.message
@@ -31,11 +31,11 @@ async function submit() {
       <h1>Panel de Reportes</h1>
       <p class="muted">Inicia sesión para continuar</p>
 
-      <label>Correo</label>
-      <input v-model="email" type="email" required placeholder="admin@demo.com" />
+      <label>Usuario</label>
+      <input v-model="usuario" type="text" required placeholder="admin" />
 
       <label>Contraseña</label>
-      <input v-model="password" type="password" required placeholder="123456" />
+      <input v-model="password" type="password" required />
 
       <p v-if="error" class="error">{{ error }}</p>
 
@@ -43,9 +43,7 @@ async function submit() {
         {{ loading ? 'Entrando…' : 'Entrar' }}
       </button>
 
-      <p class="hint muted">
-        Demo: admin@demo.com / gestor@demo.com / revisor@demo.com — pass 123456
-      </p>
+      <p class="hint muted">Superadmin. Demo mock: admin / reencuentros2026</p>
     </form>
   </div>
 </template>

@@ -18,9 +18,6 @@ function logout() {
       <nav>
         <router-link :to="{ name: 'dashboard' }">Dashboard</router-link>
         <router-link :to="{ name: 'reportes' }">Reportes</router-link>
-        <router-link v-if="auth.can('users:manage')" :to="{ name: 'usuarios' }">
-          Usuarios
-        </router-link>
       </nav>
     </aside>
 
