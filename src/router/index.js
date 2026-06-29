@@ -9,7 +9,12 @@ const routes = [
     children: [
       { path: '', redirect: { name: 'dashboard' } },
       { path: 'dashboard', name: 'dashboard', component: () => import('@/views/DashboardView.vue') },
-      { path: 'reportes', name: 'reportes', component: () => import('@/views/ReportesPanelView.vue') },
+      { path: 'reportes', redirect: { name: 'registros' } },
+      { path: 'reportes/registros', name: 'registros', component: () => import('@/views/RegistrosView.vue') },
+      { path: 'reportes/inadecuadas', name: 'inadecuadas', component: () => import('@/views/InadecuadasView.vue') },
+      { path: 'reportes/comentarios', name: 'comentarios', component: () => import('@/views/ComentariosView.vue') },
+      { path: 'reportes/testimonios', name: 'testimonios', component: () => import('@/views/TestimoniosView.vue') },
+      { path: 'busqueda', name: 'busqueda', component: () => import('@/views/BusquedaView.vue') },
     ],
   },
   { path: '/:pathMatch(.*)*', redirect: { name: 'dashboard' } },

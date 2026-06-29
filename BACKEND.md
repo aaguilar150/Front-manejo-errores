@@ -4,6 +4,25 @@ El front consume **los endpoints reales del Swagger**. El mock (`VITE_USE_MOCK=t
 imita ese Swagger campo por campo, así que apagarlo (`false` + `VITE_API_BASE_URL`)
 conecta el back real sin tocar componentes.
 
+## Paginación y filtros (lo que el front YA manda)
+
+Todos los listados van por **query params**, paginación con **`limit` + `offset`**.
+El front espera respuesta **`{ "data": [...], "total": N }`**.
+
+> Transición: si el back todavía devuelve un **array plano**, el repo lo pagina/
+> filtra en cliente como fallback. En cuanto devuelva `{data,total}`, el front
+> confía en el server automáticamente (sin cambios de código).
+
+| Listado | Query params que manda el front |
+|---|---|
+| `GET /admin/personas`  | `limit, offset, q, edad, menor(true\|false), estado, moderacion` |
+| `GET /admin/reportes` (B) | `tipo=publicacion, estado, q, limit, offset` |
+| `GET /admin/reportes` (C) | `tipo=falla, estado, desde, hasta, limit, offset` |
+
+- `q`: busca en nombre/apellido (personas) o `pub_nombre` (reportes publicacion).
+- `menor`: `true` => edad < 18, `false` => edad ≥ 18.
+- `desde`/`hasta`: rango sobre `created_at` (`YYYY-MM-DD`).
+
 Toda traducción vive en:
 - `src/data/mappers/` — back → shape estable del front (`personaMapper`, `reporteMapper`)
 - `src/data/repositories/` — llaman al endpoint y aplican búsqueda/paginación cliente

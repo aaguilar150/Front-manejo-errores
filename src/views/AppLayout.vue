@@ -17,7 +17,11 @@ function logout() {
       <div class="brand">Reportes</div>
       <nav>
         <router-link :to="{ name: 'dashboard' }">Dashboard</router-link>
-        <router-link :to="{ name: 'reportes' }">Reportes</router-link>
+        <router-link :to="{ name: 'busqueda' }">Búsqueda por foto</router-link>
+        <router-link :to="{ name: 'registros' }">Registros</router-link>
+        <router-link :to="{ name: 'inadecuadas' }">Publicaciones inadecuadas</router-link>
+        <router-link :to="{ name: 'comentarios' }">Reportes de fallas</router-link>
+        <router-link :to="{ name: 'testimonios' }">Testimonios</router-link>
       </nav>
     </aside>
 

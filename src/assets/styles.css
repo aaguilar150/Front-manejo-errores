@@ -127,6 +127,9 @@ button.danger { background: var(--danger); }
 .filters label.inline { display: inline-flex; align-items: center; gap: .5rem; margin: 0; color: var(--muted); }
 .filters label.inline input { min-width: 150px; }
 
+/* Botón recargar */
+.reload { font-size: 1.1rem; line-height: 1; padding: .5rem .7rem; }
+
 /* Paginación */
 .pager { display: flex; align-items: center; gap: 1rem; margin-top: 1rem; }
 
@@ -184,3 +187,11 @@ button.danger { background: var(--danger); }
 @media (max-width: 640px) {
   .modal-body { grid-template-columns: 1fr; }
 }
+
+/* Búsqueda por foto + ficha de trazabilidad */
+.thumb--lg { width: 160px; height: 120px; cursor: default; }
+.busqueda-preview { margin: 1rem 0; }
+.ficha { margin-top: 1rem; display: grid; gap: 1rem; }
+.ficha-block span { font-size: .75rem; }
+.ficha-list { list-style: none; margin: .35rem 0 0; padding: 0; display: grid; gap: .5rem; }
+.ficha-list li { border: 1px solid var(--border); border-radius: 8px; padding: .5rem .6rem; font-size: .85rem; }

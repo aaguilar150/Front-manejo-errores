@@ -1,8 +1,8 @@
 <script setup>
 import { computed } from 'vue'
-const props = defineProps({ page: Number, limit: Number, total: Number })
+const props = defineProps({ page: Number, limite: Number, total: Number })
 const emit = defineEmits(['change'])
-const pages = computed(() => Math.max(1, Math.ceil(props.total / props.limit)))
+const pages = computed(() => Math.max(1, Math.ceil(props.total / props.limite)))
 </script>
 
 <template>

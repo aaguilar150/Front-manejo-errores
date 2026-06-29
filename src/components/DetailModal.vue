@@ -31,6 +31,7 @@ const emit = defineEmits(['close'])
             <span class="muted">Descripción</span>
             <p>{{ text }}</p>
           </div>
+          <slot />
         </div>
       </div>
     </div>
