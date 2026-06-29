@@ -2,6 +2,7 @@
 import { ref, onUnmounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useBusquedaStore } from '@/stores/busquedaStore'
+import DetailModal from '@/components/DetailModal.vue'
 
 const store = useBusquedaStore()
 const { results, loading, error, buscado, limite, estado } = storeToRefs(store)
@@ -9,6 +10,8 @@ const { results, loading, error, buscado, limite, estado } = storeToRefs(store)
 const file = ref(null)
 const previewUrl = ref('')
 const copiedId = ref(null)
+const detail = ref(null) // registro abierto en modal
+const preview = ref(null) // imagen ampliada
 
 const shortId = (id) => (id && id.length > 10 ? `${id.slice(0, 8)}…` : id)
 async function copyId(id) {
@@ -67,7 +70,7 @@ const confianzaBadge = (c) => (c === 'alta' ? 'badge--atendido' : c === 'baja' ?
         <tbody>
           <tr v-for="r in results" :key="r.id">
             <td>
-              <img v-if="r.imagen" :src="r.imagen" class="thumb" alt="foto" />
+              <img v-if="r.imagen" :src="r.imagen" class="thumb" alt="foto" @click="preview = r.imagen" />
               <span v-else class="muted">—</span>
             </td>
             <td>
@@ -83,6 +86,9 @@ const confianzaBadge = (c) => (c === 'alta' ? 'badge--atendido' : c === 'baja' ?
             <td>{{ r.ubicacion || '—' }}</td>
             <td>{{ r.telefono || '—' }}</td>
             <td class="actions">
+              <button class="icon" title="Ver detalle" @click="detail = r">
+                <svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
               <button class="icon icon--danger" title="Eliminar" @click="eliminar(r)">
                 <svg viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>
               </button>
@@ -92,5 +98,30 @@ const confianzaBadge = (c) => (c === 'alta' ? 'badge--atendido' : c === 'baja' ?
         </tbody>
       </table>
     </template>
+
+    <DetailModal
+      :open="!!detail"
+      :title="detail ? `${detail.nombre} ${detail.apellido}` : ''"
+      :image="detail?.imagen"
+      :fields="detail ? [
+        { label: 'person_id', value: detail.id },
+        { label: 'Coincidencia', value: detail.coincidencia != null ? `${detail.coincidencia}%` : '—' },
+        { label: 'Confianza', value: detail.confianza },
+        { label: 'Distancia', value: detail.distancia },
+        { label: 'Edad', value: detail.edad },
+        { label: 'Menor', value: detail.esMenor ? 'Sí' : 'No' },
+        { label: 'Estado', value: detail.estado },
+        { label: 'Ubicación', value: detail.ubicacion },
+        { label: 'Refugio', value: detail.refugio },
+        { label: 'Teléfono', value: detail.telefono },
+        { label: 'Encontrado por', value: detail.encontradoPor },
+      ] : []"
+      :text="detail?.descripcion"
+      @close="detail = null"
+    />
+
+    <div v-if="preview" class="modal-backdrop" @click="preview = null">
+      <img :src="preview" class="preview-img" alt="vista previa" />
+    </div>
   </section>
 </template>
